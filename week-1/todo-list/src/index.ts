@@ -42,6 +42,24 @@ function addTodo(title: string, metadata?: string | object) : Todo {
     return newTodo;
 };
 
+//Utilizzare Tipi Utility
+function updateTodo(todoId: number, fieldsToUpdate: Partial<Todo>) : Todo | undefined {
+    const index = todos.findIndex(t => t.id === todoId);
+
+    if(index === -1) {
+        console.error(`Todo with ID ${todoId} not found.`);
+        return;
+    }
+
+    const updatedTodo = {
+        ...todos[index],
+        ...fieldsToUpdate
+    };
+
+    todos[index] = updatedTodo;
+    return updatedTodo;
+}
+
 //Aggiunge un nuovo utente all'array
 function addUser(name: string) : User {
     const newUser:User = {
@@ -71,7 +89,7 @@ function getUserTodos(userId: number) : Todo[] {
 }
 
 //Gestione degli errori con never 
-function manageError(message:string) : never{
+function manageError(message?:string) : never{
     throw new Error(message);
 };
 
@@ -97,12 +115,18 @@ addTodo("andare in palestra", { workout: "gambe" })
 //assegnare il todo all'utente
 assignTodoToUser(2, 1)
 assignTodoToUser(1, 2)
+//aggiornare il todo
+updateTodo(1, {
+    title: "Finire gli esercizi di typescript della settimana",
+    completed: true
+})
 //visualizzare i todo di un utente
 getUserTodos(1)
 getUserTodos(2)
 
 console.log(users)
 console.log(todos)
+console.log("Todos aggiornati:", todos)
 
 
 
