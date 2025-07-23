@@ -4,7 +4,7 @@ export interface Todo {
     completed: boolean
     userId?: number
     //Utilizzare il tipo Any
-    metadata?: any
+    metadata?:any
 } 
 
 export interface User {
@@ -13,3 +13,6 @@ export interface User {
     email?: string
 } 
 
+export interface TodoWithMetadata extends Todo {
+    metadata: any
+}

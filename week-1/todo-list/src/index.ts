@@ -1,5 +1,5 @@
 //Aggiungere un Todo all'array
-import { Todo, User } from "./types";
+import { Todo, TodoWithMetadata, User } from "./types";
 
 const todos: Todo[] = [];
 const users: User[] = [];
@@ -7,9 +7,9 @@ const users: User[] = [];
 let nextTodoId = 1;
 let nextUserId = 1
 
-//Aggiunge un nuovo todo all'array
-//Aggiunto il nuovo parametro (metadata) alla funzione
-function addTodo(title: string, metadata: any) : Todo {
+/* Aggiunge un nuovo todo all'array
+* Utilizzare il tipo Any *
+function addTodo(title: string, metadata?: any) : Todo {
     const newTodo:Todo = {
         id: nextTodoId++,
         title,
@@ -19,8 +19,28 @@ function addTodo(title: string, metadata: any) : Todo {
     todos.push(newTodo);
     return newTodo;
 };
-
-
+// * Creare tipi derivati con extends *
+function addTodo(title: string, metadata: any) : TodoWithMetadata {
+    const newTodo:TodoWithMetadata = {
+        id: nextTodoId++,
+        title,
+        completed:false,
+        metadata
+    }
+    todos.push(newTodo);
+    return newTodo;
+};
+//Utilizzare tipi Union */
+function addTodo(title: string, metadata?: string | object) : Todo {
+    const newTodo:Todo = {
+        id: nextTodoId++,
+        title,
+        completed:false,
+        metadata
+    }
+    todos.push(newTodo);
+    return newTodo;
+};
 
 //Aggiunge un nuovo utente all'array
 function addUser(name: string) : User {
@@ -66,9 +86,6 @@ function parseInput(input:unknown) : string{
 };
 
 console.log(parseInput(20));
-
-
-
 
 
 //aggiungere un utente
