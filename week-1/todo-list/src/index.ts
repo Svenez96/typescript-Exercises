@@ -75,7 +75,7 @@ console.log(parseInput(20));
 addUser("Domenico")
 addUser("John Wick")
 //aggiungere un todo * aggiunta una descrizione con il tag metadata *
-addTodo("fare esercizi di typescript", { difficulty:"medium" })
+addTodo("fare esercizi di typescript", { difficulty:"easy" })
 addTodo("andare in palestra", { workout: "gambe" })
 //assegnare il todo all'utente
 assignTodoToUser(2, 1)
