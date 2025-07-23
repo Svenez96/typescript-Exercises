@@ -3,6 +3,8 @@ export interface Todo {
     title: string,
     completed: boolean
     userId?: number
+    //Utilizzare il tipo Any
+    metadata?: any
 } 
 
 export interface User {
