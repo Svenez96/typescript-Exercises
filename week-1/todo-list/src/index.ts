@@ -30,7 +30,8 @@ function addTodo(title: string, metadata: any) : TodoWithMetadata {
     todos.push(newTodo);
     return newTodo;
 };
-//Utilizzare tipi Union */
+
+// * Utilizzare tipi Union */
 function addTodo(title: string, metadata?: string | object) : Todo {
     const newTodo:Todo = {
         id: nextTodoId++,
@@ -42,7 +43,7 @@ function addTodo(title: string, metadata?: string | object) : Todo {
     return newTodo;
 };
 
-//Utilizzare Tipi Utility
+// * Utilizzare Tipi Utility *
 function updateTodo(todoId: number, fieldsToUpdate: Partial<Todo>) : Todo | undefined {
     const index = todos.findIndex(t => t.id === todoId);
 
@@ -60,7 +61,7 @@ function updateTodo(todoId: number, fieldsToUpdate: Partial<Todo>) : Todo | unde
     return updatedTodo;
 }
 
-//Aggiunge un nuovo utente all'array
+// * Aggiunge un nuovo utente all'array *
 function addUser(name: string) : User {
     const newUser:User = {
         id: nextUserId++,
@@ -70,7 +71,7 @@ function addUser(name: string) : User {
     return newUser;
 };
 
-//Associare Todo con Utenti
+// * Associare Todo con Utenti *
 function assignTodoToUser(todoId: number, userId: number) : boolean {
     const todo = todos.find(t => t.id === todoId);
 
@@ -83,17 +84,17 @@ function assignTodoToUser(todoId: number, userId: number) : boolean {
     return true;
 }
 
-//Ottenere i todo di un utente
+// * Ottenere i todo di un utente *
 function getUserTodos(userId: number) : Todo[] {
     return todos.filter(todo => todo.userId === userId)
 }
 
-//Gestione degli errori con never 
+// * Gestione degli errori con never * 
 function manageError(message?:string) : never{
     throw new Error(message);
 };
 
-//Gestione dei tipi dinamici con unknown
+// * Gestione dei tipi dinamici con unknown *
 function parseInput(input:unknown) : string{
     if(typeof input === "string"){
         return input
@@ -103,8 +104,17 @@ function parseInput(input:unknown) : string{
     return manageError("Not supported type of input")
 };
 
-console.log(parseInput(20));
+// * Utilizzare tuple *
+function getTodoSummary(todoId: number) : [string, boolean] | undefined {
+    const todo = todos.find(t => t.id === todoId)
 
+    if (!todo) {
+        console.error(`Todo con ID ${todoId} non trovato.`)
+        return
+    }
+
+    return [ todo.title, todo.completed ]
+}
 
 //aggiungere un utente
 addUser("Domenico")
@@ -124,9 +134,12 @@ updateTodo(1, {
 getUserTodos(1)
 getUserTodos(2)
 
-console.log(users)
-console.log(todos)
-console.log("Todos aggiornati:", todos)
+console.log("Todos aggiornati:", todos);
+console.log("Todos per utente 1:", getUserTodos(1));
+console.log("Todos per utente 2:", getUserTodos(2));
+console.log(parseInput("ciao"));
+console.log("Riepilogo del Todo 1:",getTodoSummary(1));
+
 
 
 
