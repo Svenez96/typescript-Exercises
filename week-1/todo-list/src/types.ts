@@ -17,3 +17,9 @@ export interface User {
 export interface TodoWithMetadata extends Todo {
     metadata: any
 }
+
+export interface Project {
+    name: string;
+    users: User[];
+    todos: Todo[];
+}

@@ -116,6 +116,29 @@ function getTodoSummary(todoId: number) : [string, boolean] | undefined {
     return [ todo.title, todo.completed ]
 }
 
+// * Finalizzare il Progetto *
+function createProject(name: string, users: User [], todos: Todo []): Project {
+    return {
+        name,
+        users,
+        todos
+    };
+}
+
+// const users: User[] = [
+//     { id: 1, name: "Alice" },
+//     { id: 2, name: "Bob" }
+//   ];
+  
+// const todos: Todo[] = [
+//     { id: 1, title: "Setup ambiente", completed: false, userId: 1 },
+//     { id: 2, title: "Scrivere codice", completed: false, userId: 2 }
+//   ];
+  
+// const myProject = createProject("Progetto TypeScript", users, todos);
+//   console.log(myProject);
+
+
 //aggiungere un utente
 addUser("Domenico")
 addUser("John Wick")
