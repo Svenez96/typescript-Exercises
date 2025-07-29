@@ -1,4 +1,4 @@
-import { Todo, TodoStatus, Project} from "./types";
+import { Todo, TodoStatus, TodoRecord, PartialTodo} from "./types";
 import { User } from "./User";
 
 const todos: Todo[] = [];
@@ -20,12 +20,13 @@ function addTodo(title: string, metadata?: string | object) : Todo {
     return newTodo;
 };
 
-function updateTodo(todoId: number, fieldsToUpdate: Partial<Todo>) : Todo | undefined {
+// utilizzare mapped types
+function updatePartialTodo(todoId: number, fieldsToUpdate: PartialTodo): Todo | undefined {
     const index = todos.findIndex(t => t.id === todoId);
 
-    if(index === -1) {
-        console.error(`Todo with ID ${todoId} not found.`);
-        return;
+    if (index === -1) {
+        console.error(`Todo con ID ${todoId} non trovato.`);
+        return undefined;
     }
 
     const updatedTodo = {
@@ -40,20 +41,28 @@ function updateTodo(todoId: number, fieldsToUpdate: Partial<Todo>) : Todo | unde
 // funzione per aggiornare lo stato del todo
 function updatedTodoStatus(todoId: number, status: TodoStatus): Todo | undefined {
     const todo = todos.find(t => t.id === todoId);
-
+    
     if (!todo) {
         console.error(`Todo with ID ${todoId} not found.`);
         return;
     }
-
+    
     todo.status = status;
     return todo;
 }
 
+// utilizzare record
+function convertArrayToRecord(todos: Todo[]): TodoRecord {
+    return todos.reduce<TodoRecord>((acc, todo) => {
+        acc[todo.id] = todo;
+        return acc;
+    }, {});
+}
+
 // function addUser(name: string) : User {
-//     const newUser:User = {
-//         id: nextUserId++,
-//         name,
+    //     const newUser:User = {
+        //         id: nextUserId++,
+        //         name,
 //         todos: []
 //     }
 //     users.push(newUser);
@@ -138,7 +147,7 @@ addTodo("fare esercizi di typescript", { difficulty:"easy" })
 addTodo("andare in palestra", { workout: "gambe" })
 assignTodoToUser(2, 1)
 assignTodoToUser(1, 2)
-updateTodo(1, {
+updatePartialTodo(1, {
     title: "Finire gli esercizi di typescript della settimana",
     completed: true
 })
@@ -152,6 +161,7 @@ getUserTodos(2)
 // console.log("Riepilogo del Todo 1:",getTodoSummary(1));
 
 console.log(updatedTodoStatus(1, TodoStatus.Pending));
+console.log(convertArrayToRecord(todos));
 
 
 

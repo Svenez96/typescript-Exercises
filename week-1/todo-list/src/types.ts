@@ -30,3 +30,11 @@ export interface Project {
     users: User[];
     todos: Todo[];
 }
+
+// utilizzare mapped types
+export type PartialTodo = {
+    [P in keyof Todo]?: Todo[P];
+  }
+
+// utilizzare record
+export type TodoRecord = Record<number, Todo>;
