@@ -1,5 +1,5 @@
-//Aggiungere un Todo all'array
-import { Todo, TodoStatus, Project, User } from "./types";
+import { Todo, TodoStatus, Project} from "./types";
+import { User } from "./User";
 
 const todos: Todo[] = [];
 const users: User[] = [];
@@ -50,15 +50,22 @@ function updatedTodoStatus(todoId: number, status: TodoStatus): Todo | undefined
     return todo;
 }
 
-function addUser(name: string) : User {
-    const newUser:User = {
-        id: nextUserId++,
-        name,
-        todos: []
-    }
+// function addUser(name: string) : User {
+//     const newUser:User = {
+//         id: nextUserId++,
+//         name,
+//         todos: []
+//     }
+//     users.push(newUser);
+//     return newUser;
+// };
+
+// utilizzare la classe user
+function addUser(name: string, email?: string): User {
+    const newUser = new User(nextUserId++, name, email);
     users.push(newUser);
     return newUser;
-};
+}
 
 function assignTodoToUser(todoId: number, userId: number) : boolean {
     const todo = todos.find(t => t.id === todoId);
@@ -103,13 +110,13 @@ function getTodoSummary(todoId: number) : [string, boolean] | undefined {
 }
 
 // * Finalizzare il Progetto *
-function createProject(name: string, users: User [], todos: Todo []): Project {
-    return {
-        name,
-        users,
-        todos
-    };
-}
+// function createProject(name: string, users: User [], todos: Todo []): Project {
+//     return {
+//         name,
+//         users,
+//         todos
+//     };
+// }
 
 // const users: User[] = [
 //     { id: 1, name: "Alice" },
