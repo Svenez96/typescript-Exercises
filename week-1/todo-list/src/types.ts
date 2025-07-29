@@ -1,11 +1,18 @@
 export interface Todo {
     id: number,
     title: string,
-    completed: boolean
-    userId?: number
-    //Utilizzare il tipo Any
-    metadata?: any
+    completed: boolean,
+    userId?: number,
+    metadata?: any,
+    status: TodoStatus
 } 
+
+// Utilizzare Enum per gli stati dei Todo
+export enum TodoStatus {
+    Pending = "Pending",
+    InProgress = "InProgress",
+    Completed = "Completed"
+}
 
 export interface User {
     id: number,
